@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: stock_plat
+    password: n!3n8GH*X&Fl
+    url: jdbc:mysql://172.1.1.25:6579/stock_plat?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+    type: com.zaxxer.hikari.HikariDataSource
+  redis:
+    host: 127.0.0.1
+    pool: 6379
+    timeout: 5000
+    database: 0
+
+# 签名密钥
+secret: 123456789
