@@ -21,7 +21,7 @@ import java.util.TreeMap;
  */
 @Configuration
 @Slf4j
-public class CheckSignInterceptor implements HandlerInterceptor {
+public class SignCheckInterceptor implements HandlerInterceptor {
 
     /**
      * 签名值请求参数名称

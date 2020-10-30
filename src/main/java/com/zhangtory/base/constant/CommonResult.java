@@ -20,6 +20,11 @@ public class CommonResult {
 
     public static final CommonResult SIGN_ERROR = new CommonResult(-103, "sign_error");
 
+    public static final CommonResult TOKEN_EXPIRED = new CommonResult(-104, "token_expired");
+
+    public static final CommonResult USER_NOT_LOGIN = new CommonResult(-104, "user_not_login");
+
+
     /**
      * 状态码
      */
