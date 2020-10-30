@@ -2,6 +2,7 @@ package com.zhangtory.base;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import springfox.documentation.oas.annotations.EnableOpenApi;
 
 /**
@@ -10,6 +11,7 @@ import springfox.documentation.oas.annotations.EnableOpenApi;
  */
 @SpringBootApplication
 @EnableOpenApi
+@ServletComponentScan
 public class BaseApplication {
 
     public static void main(String[] args) {
