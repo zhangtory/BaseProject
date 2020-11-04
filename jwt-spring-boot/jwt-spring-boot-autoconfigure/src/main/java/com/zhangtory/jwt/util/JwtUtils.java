@@ -1,8 +1,7 @@
-package com.zhangtory.base.utils;
+package com.zhangtory.jwt.util;
 
-import com.zhangtory.base.constant.CommonResult;
-import com.zhangtory.base.exception.CommonException;
-import com.zhangtory.base.model.vo.JwtUserVo;
+import com.zhangtory.jwt.exception.LoginCheckException;
+import com.zhangtory.jwt.model.JwtUserVo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -11,6 +10,8 @@ import io.jsonwebtoken.security.Keys;
 import java.security.Key;
 import java.util.Date;
 
+import static com.zhangtory.jwt.constant.JwtConstant.TOKEN_EXPIRED;
+
 /**
  * @author zhangtory
  * @date 2019/12/10 21:23
@@ -18,8 +19,7 @@ import java.util.Date;
  */
 public class JwtUtils {
 
-    // TODO 设置issuer
-    public static final String JWT_ISSUER = "WayHome_Server_0.3";
+    public static final String JWT_ISSUER = "jwt-issuer";
 
     public static final Long DEFAULT_EXPIRATION = 7 * 24 * 60 * 60 * 1000L;
 
@@ -51,7 +51,7 @@ public class JwtUtils {
             return Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).getBody();
         } catch (Exception e) {
             // token过期或无效
-            throw new CommonException(CommonResult.TOKEN_EXPIRED);
+            throw new LoginCheckException(TOKEN_EXPIRED);
         }
     }
 

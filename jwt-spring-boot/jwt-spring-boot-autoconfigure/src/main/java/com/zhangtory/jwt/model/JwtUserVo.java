@@ -1,4 +1,4 @@
-package com.zhangtory.base.model.vo;
+package com.zhangtory.jwt.model;
 
 import lombok.Data;
 

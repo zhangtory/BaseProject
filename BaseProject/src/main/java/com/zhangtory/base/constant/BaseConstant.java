@@ -8,11 +8,6 @@ package com.zhangtory.base.constant;
 public class BaseConstant {
 
     /**
-     * Header token
-     */
-    public static final String TOKEN_HEADER = "Authorization";
-
-    /**
      * 密码MD5时盐的长度
      */
     public static final int PASSWORD_SALT_LEN = 6;

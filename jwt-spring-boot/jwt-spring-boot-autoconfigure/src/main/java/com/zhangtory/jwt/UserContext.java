@@ -1,11 +1,12 @@
-package com.zhangtory.base.config;
+package com.zhangtory.jwt;
 
-import com.zhangtory.base.constant.BaseConstant;
-import com.zhangtory.base.utils.JwtUtils;
+import com.zhangtory.jwt.util.JwtUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+
+import static com.zhangtory.jwt.constant.JwtConstant.TOKEN_HEADER;
 
 /**
  * @author zhangtory
@@ -17,7 +18,7 @@ public class UserContext {
     public static String getToken() {
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = servletRequestAttributes.getRequest();
-        String token = request.getHeader(BaseConstant.TOKEN_HEADER);
+        String token = request.getHeader(TOKEN_HEADER);
         return token;
     }
 
