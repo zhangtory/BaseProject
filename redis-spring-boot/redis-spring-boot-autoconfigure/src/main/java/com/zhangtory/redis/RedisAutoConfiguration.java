@@ -1,8 +1,9 @@
-package com.zhangtory.base.config;
+package com.zhangtory.redis;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -10,17 +11,16 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-
 /**
- * @author zhangtory
- * @date 2020/06/10 21:00
- * @description: redis配置
+ * @Author: ZhangTory
+ * @Date: 2020/11/4 9:29
+ * @Description:
  */
 @Configuration
-public class RedisConfig {
+public class RedisAutoConfiguration {
 
     @Bean
-    @SuppressWarnings("all")
+    @ConditionalOnMissingBean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
         RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
         template.setConnectionFactory(factory);
@@ -40,5 +40,12 @@ public class RedisConfig {
         template.afterPropertiesSet();
         return template;
     }
-    
+
+    @Bean
+    @ConditionalOnMissingBean
+    public RedisHelper redisHelper(RedisTemplate<String, Object> redisTemplate) {
+        RedisHelper redisHelper = new RedisHelper(redisTemplate);
+        return redisHelper;
+    }
+
 }

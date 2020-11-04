@@ -1,7 +1,6 @@
 package com.zhangtory.base;
 
 import com.alibaba.fastjson.JSONObject;
-import com.zhangtory.base.component.RedisHelper;
 import com.zhangtory.base.model.entity.LmRefundLog;
 import com.zhangtory.base.service.ILmRefundLogService;
 import lombok.extern.slf4j.Slf4j;
@@ -16,14 +15,14 @@ class BaseApplicationTests {
     @Autowired
     private ILmRefundLogService lmRefundLogService;
 
-    @Autowired
-    private RedisHelper redisHelper;
-
-    @Test
-    void redisTest() {
-        Object o = redisHelper.get("yysc:czb:token");
-        log.info(o.toString());
-    }
+//    @Autowired
+//    private RedisHelper redisHelper;
+//
+//    @Test
+//    void redisTest() {
+//        Object o = redisHelper.get("yysc:czb:token");
+//        log.info(o.toString());
+//    }
 
     @Test
     void contextLoads() {

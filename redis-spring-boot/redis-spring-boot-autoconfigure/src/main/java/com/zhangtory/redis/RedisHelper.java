@@ -1,9 +1,7 @@
-package com.zhangtory.base.component;
+package com.zhangtory.redis;
 
 import org.apache.commons.lang3.RandomUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
@@ -12,11 +10,13 @@ import java.util.concurrent.TimeUnit;
  * @date 2020/6/22 22:05
  * @description: redis辅助工具
  */
-@Component
 public class RedisHelper {
 
-    @Autowired
     private RedisTemplate<String, Object> redisTemplate;
+
+    public RedisHelper(RedisTemplate<String, Object> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
 
     /**
      * 默认超时时间为1天
