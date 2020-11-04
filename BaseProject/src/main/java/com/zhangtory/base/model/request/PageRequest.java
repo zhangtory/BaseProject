@@ -9,7 +9,7 @@ import lombok.Data;
  * @Description: 分页查询 TODO 根据情况集成base验证请求
  */
 @Data
-public class PageRequest extends BaseSignRequest {
+public class PageRequest {
 
     @ApiModelProperty(value = "每页数量")
     private Integer pageSize = 10;

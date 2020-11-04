@@ -13,7 +13,7 @@ import javax.validation.constraints.NotEmpty;
  */
 @Data
 @ApiModel("HelloEcho请求参数")
-public class HelloEchoSignRequest extends BaseSignRequest {
+public class HelloEchoSignRequest {
 
     @ApiModelProperty("数据")
     @NotEmpty(message = "回显数据不能为空")

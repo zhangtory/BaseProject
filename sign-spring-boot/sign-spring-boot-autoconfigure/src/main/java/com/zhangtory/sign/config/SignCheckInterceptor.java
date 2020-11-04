@@ -1,12 +1,11 @@
-package com.zhangtory.base.config;
+package com.zhangtory.sign.config;
 
-import com.zhangtory.base.constant.CommonResult;
-import com.zhangtory.base.exception.CommonException;
-import com.zhangtory.base.utils.EncryptUtils;
-import lombok.extern.slf4j.Slf4j;
+import com.zhangtory.sign.exception.SignException;
+import com.zhangtory.sign.util.EncryptUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,14 +13,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 import java.util.TreeMap;
 
+import static com.zhangtory.sign.constant.SignConstant.SIGN_ERROR;
+import static com.zhangtory.sign.constant.SignConstant.TIMESTAMP_ERROR;
+
 /**
  * @Author: ZhangTory
  * @Date: 2020/10/30 10:28
  * @Description: 接口验签拦截器
  */
-@Configuration
-@Slf4j
 public class SignCheckInterceptor implements HandlerInterceptor {
+
+    Logger logger = LoggerFactory.getLogger(SignCheckInterceptor.class);
 
     /**
      * 签名值请求参数名称
@@ -33,8 +35,11 @@ public class SignCheckInterceptor implements HandlerInterceptor {
      */
     private static final String TIMESTAMP = "timestamp";
 
-    @Value("${secret}")
     private String secret;
+
+    public SignCheckInterceptor(String secret) {
+        this.secret = secret;
+    }
 
     /**
      * 过期时间 60秒
@@ -59,10 +64,10 @@ public class SignCheckInterceptor implements HandlerInterceptor {
         try {
             timestamp = Long.parseLong(request.getParameter(TIMESTAMP));
         } catch (NumberFormatException e) {
-            throw new CommonException(CommonResult.TIMESTAMP_ERROR);
+            throw new SignException(TIMESTAMP_ERROR);
         }
         if (Math.abs(timestamp - System.currentTimeMillis()) > TIME_OUT) {
-            throw new CommonException(CommonResult.TIMESTAMP_ERROR);
+            throw new SignException(TIMESTAMP_ERROR);
         }
         // 签名值
         String sign = request.getParameter(SIGN_KEY);
@@ -82,8 +87,8 @@ public class SignCheckInterceptor implements HandlerInterceptor {
         originStr.append(secret);
         String md5 = EncryptUtils.md5(originStr.toString());
         if (!md5.equals(sign.toUpperCase())) {
-            log.warn("签名错误，原串: [{}], md5: [{}], 收到的签名: [{}]", originStr.toString(), md5, sign);
-            throw new CommonException(CommonResult.SIGN_ERROR);
+            logger.warn("签名错误，原串: [{}], md5: [{}], 收到的签名: [{}]", originStr.toString(), md5, sign);
+            throw new SignException(SIGN_ERROR);
         }
         return true;
     }

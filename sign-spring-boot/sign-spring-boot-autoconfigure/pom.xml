@@ -3,18 +3,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.zhangtory</groupId>
-    <artifactId>jwt-spring-boot-autoconfigure</artifactId>
+    <artifactId>sign-spring-boot-autoconfigure</artifactId>
     <version>1.0</version>
-    <name>jwt-spring-boot-autoconfigure</name>
-    <description>jwt starter for zhangtory</description>
+    <name>sign-spring-boot-autoconfigure</name>
+    <description>sign checker for zhangtory</description>
 
     <properties>
         <java.version>1.8</java.version>
-        <jjwt-api.version>0.10.7</jjwt-api.version>
-        <jjwt-impl.version>0.10.7</jjwt-impl.version>
-        <jjwt-jackson.version>0.10.7</jjwt-jackson.version>
         <spring-webmvc.version>5.2.10.RELEASE</spring-webmvc.version>
         <servlet-api.version>4.0.1</servlet-api.version>
+        <commons-lang3.version>3.11</commons-lang3.version>
     </properties>
 
     <dependencies>
@@ -38,23 +36,11 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- jwt相关依赖 -->
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
         <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-api</artifactId>
-            <version>${jjwt-api.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-impl</artifactId>
-            <version>${jjwt-impl.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-jackson</artifactId>
-            <version>${jjwt-jackson.version}</version>
-            <scope>runtime</scope>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
         </dependency>
 
         <dependency>
@@ -92,6 +78,14 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>
