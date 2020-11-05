@@ -13,16 +13,16 @@
   #### 1. [core-spring-boot-starter](core-spring-boot/README.md)
   核心core-spring-boot-starter必须引入，包含了swagger集成、CORS跨域请求处理、统一返回对象、全局异常处理、logback日志配置、请求日志打印拦截器、通用异常类以及可能用到的utils。
 
-  #### 2. [mybatis-plus-spring-boot-starter](mybatis-plus-spring-boot-starter/README.md)
+  #### 2. [mybatis-plus-spring-boot-starter](mybatis-plus-spring-boot/README.md)
   支持mybatis-plus，加入了分页拦截器和乐观锁拦截器，并提供代码生成器。
   
-  #### 3. [redis-spring-boot-starter](redis-spring-boot-starter/README.md)
+  #### 3. [redis-spring-boot-starter](redis-spring-boot/README.md)
   引入Redis的支持，并提供RedisHelper封装常用操作。
   
-  #### 4. [sign-spring-boot-starter](sign-spring-boot-starter/README.md)
+  #### 4. [sign-spring-boot-starter](sign-spring-boot/README.md)
   提供对接口的验签支持。
   
-  #### 5. [jwt-spring-boot-starter](jwt-spring-boot-starter/README.md)
+  #### 5. [jwt-spring-boot-starter](jwt-spring-boot/README.md)
   提供json web token的支持，验证用户登录等功能。
   
 
