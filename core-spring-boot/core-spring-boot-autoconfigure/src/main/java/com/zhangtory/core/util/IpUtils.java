@@ -1,4 +1,4 @@
-package com.zhangtory.base.utils;
+package com.zhangtory.core.util;
 
 
 import javax.servlet.http.HttpServletRequest;

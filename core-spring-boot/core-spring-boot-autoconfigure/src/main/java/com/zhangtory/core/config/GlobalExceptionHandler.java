@@ -1,9 +1,9 @@
-package com.zhangtory.base.config;
+package com.zhangtory.core.config;
 
-import com.zhangtory.base.component.ResponseBuilder;
-import com.zhangtory.base.constant.CommonResult;
-import com.zhangtory.base.exception.CommonException;
-import com.zhangtory.base.model.response.BaseResponse;
+import com.zhangtory.core.constant.CommonResult;
+import com.zhangtory.core.exception.CommonException;
+import com.zhangtory.core.response.BaseResponse;
+import com.zhangtory.core.response.ResponseBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.context.support.DefaultMessageSourceResolvable;

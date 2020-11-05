@@ -1,4 +1,4 @@
-package com.zhangtory.base.config;
+package com.zhangtory.core.config;
 
 import org.springframework.context.annotation.Configuration;
 

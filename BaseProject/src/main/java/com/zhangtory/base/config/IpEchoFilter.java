@@ -1,6 +1,6 @@
 package com.zhangtory.base.config;
 
-import com.zhangtory.base.utils.IpUtils;
+import com.zhangtory.core.util.IpUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.*;

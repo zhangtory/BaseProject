@@ -1,4 +1,4 @@
-package com.zhangtory.base.constant;
+package com.zhangtory.core.constant;
 
 import lombok.Getter;
 

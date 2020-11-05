@@ -1,4 +1,4 @@
-package com.zhangtory.base.config;
+package com.zhangtory.core.config;
 
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
  * @Date: 2020/9/3 15:13
  * @Description: 日志拦截器
  */
-@Configuration
 @Slf4j
 public class LogInterceptor implements HandlerInterceptor {
 

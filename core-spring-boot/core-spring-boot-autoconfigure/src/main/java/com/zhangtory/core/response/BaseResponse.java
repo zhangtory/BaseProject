@@ -1,6 +1,6 @@
-package com.zhangtory.base.model.response;
+package com.zhangtory.core.response;
 
-import com.zhangtory.base.constant.CommonResult;
+import com.zhangtory.core.constant.CommonResult;
 import lombok.Getter;
 
 /**

@@ -1,6 +1,6 @@
-package com.zhangtory.base.exception;
+package com.zhangtory.core.exception;
 
-import com.zhangtory.base.constant.CommonResult;
+import com.zhangtory.core.constant.CommonResult;
 import lombok.Data;
 
 /**

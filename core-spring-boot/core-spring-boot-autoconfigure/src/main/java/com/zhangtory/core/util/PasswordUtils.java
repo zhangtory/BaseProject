@@ -1,6 +1,4 @@
-package com.zhangtory.base.utils;
-
-import com.zhangtory.base.constant.BaseConstant;
+package com.zhangtory.core.util;
 
 import java.util.Random;
 
@@ -12,6 +10,11 @@ import java.util.Random;
 public class PasswordUtils {
 
     /**
+     * 密码MD5时盐的长度
+     */
+    public static final int PASSWORD_SALT_LEN = 6;
+
+    /**
      * 密码加密
      * @param password 明文密码
      * @return
@@ -19,7 +22,7 @@ public class PasswordUtils {
     public static String getEncryptedPassword(String password) {
         Random random = new Random();
         StringBuilder salt = new StringBuilder(String.valueOf(random.nextInt(999999)));
-        while (salt.toString().length() < BaseConstant.PASSWORD_SALT_LEN) {
+        while (salt.toString().length() < PASSWORD_SALT_LEN) {
             salt.append("0");
         }
         String encode = EncryptUtils.md5(password + salt.toString());

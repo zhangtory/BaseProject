@@ -1,7 +1,6 @@
-package com.zhangtory.base.component;
+package com.zhangtory.core.response;
 
-import com.zhangtory.base.constant.CommonResult;
-import com.zhangtory.base.model.response.BaseResponse;
+import com.zhangtory.core.constant.CommonResult;
 
 /**
  * @Author: ZhangTory

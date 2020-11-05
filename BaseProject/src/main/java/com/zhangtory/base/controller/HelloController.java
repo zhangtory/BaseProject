@@ -1,8 +1,8 @@
 package com.zhangtory.base.controller;
 
-import com.zhangtory.base.component.ResponseBuilder;
 import com.zhangtory.base.model.request.HelloEchoSignRequest;
-import com.zhangtory.base.model.response.BaseResponse;
+import com.zhangtory.core.response.BaseResponse;
+import com.zhangtory.core.response.ResponseBuilder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
