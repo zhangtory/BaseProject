@@ -1,6 +1,6 @@
 # BaseProject
 
-基于SpringBoot的基础框架，可以根据需求快速组装组件，构建基础框架。
+基于SpringBoot的基础框架，可以根据需求快速组装组件，构建基础框架。  
 目前主要是个人使用，配置都基于个人约定，后期会慢慢维护。
 
 ## 使用方法
@@ -10,23 +10,23 @@
   #### 0. base-project
   基础项目demo。
   
-  #### 1. core-spring-boot-starter
+  #### 1. [core-spring-boot-starter](core-spring-boot/README.md)
   核心core-spring-boot-starter必须引入，包含了swagger集成、CORS跨域请求处理、统一返回对象、全局异常处理、logback日志配置、请求日志打印拦截器、通用异常类以及可能用到的utils。
 
-  #### 2. mybatis-plus-spring-boot-starter
+  #### 2. [mybatis-plus-spring-boot-starter](mybatis-plus-spring-boot-starter/README.md)
   支持mybatis-plus，加入了分页拦截器和乐观锁拦截器，并提供代码生成器。
   
-  #### 3. redis-spring-boot-starter
+  #### 3. [redis-spring-boot-starter](redis-spring-boot-starter/README.md)
   引入Redis的支持，并提供RedisHelper封装常用操作。
   
-  #### 4. sign-spring-boot-starter
+  #### 4. [sign-spring-boot-starter](sign-spring-boot-starter/README.md)
   提供对接口的验签支持。
   
-  #### 5. jwt-spring-boot-starter
+  #### 5. [jwt-spring-boot-starter](jwt-spring-boot-starter/README.md)
   提供json web token的支持，验证用户登录等功能。
   
 
-### 以core-spring-boot-starter为例创建项目
+## 以core-spring-boot-starter为例创建项目
   新建springboot项目或以base-project为基础修改名称。
   
   #### a. 新建springboot项目
