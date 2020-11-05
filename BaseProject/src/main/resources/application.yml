@@ -8,6 +8,3 @@ spring:
     active: @env@
 mybatis:
   mapper-locations: classpath*:/mapper/*.xml
-
-sign:
-  secret: 123456

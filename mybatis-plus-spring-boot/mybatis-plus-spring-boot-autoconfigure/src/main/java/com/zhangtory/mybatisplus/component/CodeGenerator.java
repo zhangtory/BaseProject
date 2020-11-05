@@ -1,4 +1,4 @@
-package com.zhangtory.base.component;
+package com.zhangtory.mybatisplus.component;
 
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
@@ -18,44 +18,70 @@ import java.util.List;
  */
 public class CodeGenerator {
 
-    /**************************************************
-     *                   配置生成表                   *
-     **************************************************/
+    private DatabaseProperties databaseProperties;
 
-    /**
-     * 需要生成的表的表名，使用英文逗号分割
-     */
-    private static final String TABLE_NAME = "lm_refund_log";
+    public void setDatabaseProperties(DatabaseProperties databaseProperties) {
+        this.databaseProperties = databaseProperties;
+    }
 
     /**
      * 是否覆盖已有文件
      */
-    private static final Boolean FILE_OVERRIDE = false;
+    private Boolean fileOverride = false;
+
+    public void setFileOverride(Boolean fileOverride) {
+        this.fileOverride = fileOverride;
+    }
 
     /**
      * 修改创建人
      */
-    private static final String AUTHOR = "ZhangTory";
+    private String author = "";
 
-    /**************************************************
-     *           以下配置在创建项目时修改             *
-     **************************************************/
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
-    private static final String MODULE_NAME = "base";
+    /**
+     * 根包路径
+     */
+    private String modulePath = "";
 
-    private static final String DATABASE_URL = "jdbc:mysql://192.168.6.123:3306/stock_plat?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=Asia/Shanghai";
+    public void setModulePath(String modulePath) {
+        this.modulePath = modulePath;
+    }
 
-    private static final String DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
+    /**
+     * 生成代码
+     * @param tablesName
+     * @param modulePath
+     * @param author
+     * @param fileOverride
+     */
+    public void create(String tablesName, String modulePath, String author, Boolean fileOverride) {
+        this.author = author;
+        this.fileOverride = fileOverride;
+        create(tablesName, modulePath);
+    }
 
-    private static final String DATABASE_USERNAME = "stock_plat";
+    /**
+     * 生成代码
+     * @param tablesName
+     * @param modulePath
+     * @param author
+     */
+    public void create(String tablesName, String modulePath, String author) {
+        this.author = author;
+        create(tablesName, modulePath);
+    }
 
-    private static final String DATABASE_PASSWORD = "123456";
-
-    /**************************************************
-     *            生成前请检查以上配置                *
-     **************************************************/
-
-    public static void main(String[] args) {
+    /**
+     * 生成代码
+     * @param tablesName 需要生成的表的表名，使用英文逗号分割
+     * @param modulePath
+     */
+    public void create(String tablesName, String modulePath) {
+        this.modulePath = modulePath;
         AutoGenerator mpg = new AutoGenerator();
         // 全局配置
         mpg.setGlobalConfig(globalConfig());
@@ -68,24 +94,23 @@ public class CodeGenerator {
         // 配置模板
         mpg.setTemplate(templateConfig());
         // 策略配置
-        mpg.setStrategy(strategyConfig());
+        mpg.setStrategy(strategyConfig(tablesName));
 
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();
     }
 
-
     /**
      * 全局配置
      * @return
      */
-    private static GlobalConfig globalConfig() {
+    private GlobalConfig globalConfig() {
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(projectPath + "/src/main/java");
-        gc.setAuthor(AUTHOR);
+        gc.setAuthor(author);
         gc.setOpen(false);
-        gc.setFileOverride(FILE_OVERRIDE);
+        gc.setFileOverride(fileOverride);
         return gc;
     }
 
@@ -93,12 +118,12 @@ public class CodeGenerator {
      * 数据源配置
      * @return
      */
-    private static DataSourceConfig dataSourceConfig() {
+    private DataSourceConfig dataSourceConfig() {
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl(DATABASE_URL);
-        dsc.setDriverName(DRIVER_NAME);
-        dsc.setUsername(DATABASE_USERNAME);
-        dsc.setPassword(DATABASE_PASSWORD);
+        dsc.setUrl(databaseProperties.getUrl());
+        dsc.setDriverName(databaseProperties.getDriverClassName());
+        dsc.setUsername(databaseProperties.getUsername());
+        dsc.setPassword(databaseProperties.getPassword());
         return dsc;
     }
 
@@ -106,10 +131,10 @@ public class CodeGenerator {
      * 包配置
      * @return
      */
-    private static PackageConfig packageConfig() {
+    private PackageConfig packageConfig() {
         PackageConfig pc = new PackageConfig();
         pc.setParent("com.zhangtory");
-        pc.setModuleName(MODULE_NAME);
+        pc.setModuleName(modulePath);
         pc.setEntity("model.entity");
         pc.setMapper("dao");
         return pc;
@@ -119,7 +144,7 @@ public class CodeGenerator {
      * 自定义配置mapper.xml
      * @return
      */
-    private static InjectionConfig injectionConfig() {
+    private InjectionConfig injectionConfig() {
         String projectPath = System.getProperty("user.dir");
         String templatePath = "/templates/mapper.xml.ftl";
         // 自定义配置
@@ -146,7 +171,7 @@ public class CodeGenerator {
      * 配置模板
      * @return
      */
-    private static TemplateConfig templateConfig() {
+    private TemplateConfig templateConfig() {
         TemplateConfig templateConfig = new TemplateConfig();
         templateConfig.setEntity("templates/entity.java");
         templateConfig.setMapper("templates/mapper.java");
@@ -161,13 +186,13 @@ public class CodeGenerator {
      * 策略配置
      * @return
      */
-    private static StrategyConfig strategyConfig() {
+    private StrategyConfig strategyConfig(String tablesName) {
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
-        strategy.setInclude(TABLE_NAME.split(","));
+        strategy.setInclude(tablesName.split(","));
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setVersionFieldName("version");
         strategy.setLogicDeleteFieldName("delete");
