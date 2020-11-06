@@ -1,11 +1,11 @@
 package com.zhangtory.sign.config;
 
+import com.zhangtory.sign.SignChecker;
 import com.zhangtory.sign.exception.SignException;
 import com.zhangtory.sign.util.EncryptUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,26 +25,12 @@ public class SignCheckInterceptor implements HandlerInterceptor {
 
     Logger logger = LoggerFactory.getLogger(SignCheckInterceptor.class);
 
-    /**
-     * 签名值请求参数名称
-     */
-    private static final String SIGN_KEY = "sign";
+    private SignChecker signChecker;
 
-    /**
-     * 时间戳请求参数名称
-     */
-    private static final String TIMESTAMP = "timestamp";
-
-    private String secret;
-
-    public SignCheckInterceptor(String secret) {
-        this.secret = secret;
+    public SignCheckInterceptor(SignChecker signChecker) {
+        this.signChecker = signChecker;
     }
 
-    /**
-     * 过期时间 60秒
-     */
-    private static final long TIME_OUT = 1000 * 60;
 
     /**
      * 验签: md5(k + v + ... + secret)
@@ -62,19 +48,19 @@ public class SignCheckInterceptor implements HandlerInterceptor {
         // 时间戳验证，防止重放攻击
         Long timestamp = 0L;
         try {
-            timestamp = Long.parseLong(request.getParameter(TIMESTAMP));
+            timestamp = Long.parseLong(request.getParameter(signChecker.timestamp));
         } catch (NumberFormatException e) {
             throw new SignException(TIMESTAMP_ERROR);
         }
-        if (Math.abs(timestamp - System.currentTimeMillis()) > TIME_OUT) {
+        if (Math.abs(timestamp - System.currentTimeMillis()) > signChecker.timeOut) {
             throw new SignException(TIMESTAMP_ERROR);
         }
         // 签名值
-        String sign = request.getParameter(SIGN_KEY);
+        String sign = request.getParameter(signChecker.signKey);
         // 按照ascii码排序
         Map<String, String> sortMap = new TreeMap<>();
         parameterMap.forEach((k, v) -> {
-            if (!SIGN_KEY.equals(k)) {
+            if (!signChecker.signKey.equals(k)) {
                 sortMap.put(k, v[0]);
             }
         });
@@ -84,7 +70,7 @@ public class SignCheckInterceptor implements HandlerInterceptor {
                 originStr.append(k).append(v);
             }
         });
-        originStr.append(secret);
+        originStr.append(signChecker.getSecret());
         String md5 = EncryptUtils.md5(originStr.toString());
         if (!md5.equals(sign.toUpperCase())) {
             logger.warn("签名错误，原串: [{}], md5: [{}], 收到的签名: [{}]", originStr.toString(), md5, sign);
