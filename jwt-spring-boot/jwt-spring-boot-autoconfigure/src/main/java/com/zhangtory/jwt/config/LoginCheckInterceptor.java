@@ -2,14 +2,11 @@ package com.zhangtory.jwt.config;
 
 import com.zhangtory.jwt.exception.LoginCheckException;
 import com.zhangtory.jwt.util.JwtUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 
 import static com.zhangtory.jwt.constant.JwtConstant.TOKEN_HEADER;
 import static com.zhangtory.jwt.constant.JwtConstant.USER_NOT_LOGIN;
