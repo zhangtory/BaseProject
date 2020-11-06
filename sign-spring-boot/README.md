@@ -22,7 +22,11 @@ public class SignCheckerImpl extends SignChecker {
     @Override
     public String getSecret() {
         // 比如从数据库查询secret
-        return "123456";
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = requestAttributes.getRequest();
+        String username = request.getParameter("username");
+        User user = userMapper.getByUsername(username);
+        return user.getSecret;
     }
 }
 ```
