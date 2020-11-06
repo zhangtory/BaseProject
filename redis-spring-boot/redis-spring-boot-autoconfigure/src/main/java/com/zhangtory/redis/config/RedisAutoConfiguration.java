@@ -1,8 +1,10 @@
-package com.zhangtory.redis;
+package com.zhangtory.redis.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zhangtory.redis.service.RedisHelper;
+import com.zhangtory.redis.service.RedisHelperImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,8 +46,8 @@ public class RedisAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public RedisHelper redisHelper(RedisTemplate<String, Object> redisTemplate) {
-        RedisHelper redisHelper = new RedisHelper(redisTemplate);
-        return redisHelper;
+        RedisHelperImpl redisHelperImpl = new RedisHelperImpl(redisTemplate);
+        return redisHelperImpl;
     }
 
 }
