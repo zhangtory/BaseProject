@@ -10,6 +10,8 @@ import org.springframework.util.CollectionUtils;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+import static com.zhangtory.redis.contant.RedisTimeConstant.DEFAULT_TIMEOUT;
+
 /**
  * @author zhangtory
  * @date 2020/6/22 22:05
@@ -26,11 +28,6 @@ public class RedisHelperImpl implements RedisHelper {
     private static final String REDIS_KEY_NULL_ERROR = "redis_key_is_null";
 
     private static final String REDIS_KEY_OR_VALUE_NULL_ERROR = "redis_key_or_value_is_null";
-
-    /**
-     * 默认超时时间为1天
-     */
-    private static final long DEFAULT_TIMEOUT = 24 * 60 * 60;
 
     /**
      * 获取value
