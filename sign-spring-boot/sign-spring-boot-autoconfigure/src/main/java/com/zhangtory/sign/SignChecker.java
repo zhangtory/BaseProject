@@ -37,6 +37,10 @@ public abstract class SignChecker {
      */
     public Long timeOut = 1000 * 60L;
 
+    public SignChecker() {
+        initCheckInterceptor();
+    }
+
     /**
      * 初始化拦截器，如果不使用默认约定，那么需要在这里对参数进行设置
      */
