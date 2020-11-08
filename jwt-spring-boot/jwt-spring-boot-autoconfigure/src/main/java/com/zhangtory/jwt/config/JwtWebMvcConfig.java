@@ -16,16 +16,21 @@ public class JwtWebMvcConfig implements WebMvcConfigurer {
 
     private LoginCheckInterceptor loginCheckInterceptor;
 
-    public JwtWebMvcConfig(LoginCheckInterceptor loginCheckInterceptor) {
+    private JwtConfig jwtConfig;
+
+    public JwtWebMvcConfig(LoginCheckInterceptor loginCheckInterceptor, JwtConfig jwtConfig) {
         this.loginCheckInterceptor = loginCheckInterceptor;
+        this.jwtConfig = jwtConfig;
     }
 
+    @Override
     public void addInterceptors(InterceptorRegistry registry) {
         logger.info("JwtWebMvcConfig addInterceptors: loginCheckInterceptor");
         // 用户登录检查拦截器
         registry.addInterceptor(loginCheckInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/login", "/register")
-                .excludePathPatterns("/swagger-resources/**", "/swagger-ui/**" , "/v3/**");
+                .excludePathPatterns("/swagger-resources/**", "/swagger-ui/**" , "/v3/**")
+                .excludePathPatterns(jwtConfig.patterns);
     }
 }

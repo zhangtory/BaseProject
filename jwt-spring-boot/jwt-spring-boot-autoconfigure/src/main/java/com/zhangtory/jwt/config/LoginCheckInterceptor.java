@@ -18,6 +18,7 @@ import static com.zhangtory.jwt.constant.JwtConstant.USER_NOT_LOGIN;
  */
 public class LoginCheckInterceptor implements HandlerInterceptor {
 
+    @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 检查是否登录
         String token = request.getHeader(TOKEN_HEADER);

@@ -7,12 +7,27 @@
     <version>1.0</version>
 </dependency>
 ```
+自定义配置
+继承JwtConfig并重写initJwtConfig方法。
+并且将bean命名为"jwtConfig"。
+```java
+@Component("jwtConfig")
+public class JwtConfigImpl extends JwtConfig {
+
+    @Override
+    public void initJwtConfig() {
+        // TODO 设置放开的接口
+        this.patterns.add("/index/**");
+    }
+
+}
+```
 
 ## 功能说明
 
 ### 1. 开放接口
 对"/login", "/register"不进行拦截。
-若需要增加可在JwtWebMvcConfig增加配置（后续开发配置功能）。
+若需要增加可在JwtConfig的initJwtConfig增加配置。
 
 ### 2. 对接口请求进行拦截检查
 从headers的“Authorization”中提取token，并检查token是否有效。

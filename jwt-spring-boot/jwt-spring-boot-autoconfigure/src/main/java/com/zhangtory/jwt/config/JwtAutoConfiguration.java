@@ -1,6 +1,7 @@
 package com.zhangtory.jwt.config;
 
 import com.zhangtory.jwt.UserContext;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * @Description:
  */
 @Configuration
+@AutoConfigureBefore(name = "jwtConfig")
 public class JwtAutoConfiguration {
 
     @Bean
@@ -21,8 +23,8 @@ public class JwtAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public JwtWebMvcConfig jwtWebMvcConfig(LoginCheckInterceptor loginCheckInterceptor) {
-        JwtWebMvcConfig jwtWebMvcConfig = new JwtWebMvcConfig(loginCheckInterceptor);
+    public JwtWebMvcConfig jwtWebMvcConfig(LoginCheckInterceptor loginCheckInterceptor, JwtConfig jwtConfig) {
+        JwtWebMvcConfig jwtWebMvcConfig = new JwtWebMvcConfig(loginCheckInterceptor, jwtConfig);
         return jwtWebMvcConfig;
     }
 
