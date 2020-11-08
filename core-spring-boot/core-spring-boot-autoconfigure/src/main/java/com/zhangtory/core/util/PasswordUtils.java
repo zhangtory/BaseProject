@@ -15,6 +15,11 @@ public class PasswordUtils {
     public static final int PASSWORD_SALT_LEN = 6;
 
     /**
+     * hash值长度
+     */
+    public static final int HASH_LENGTH = 32;
+
+    /**
      * 密码加密
      * @param password 明文密码
      * @return
@@ -36,12 +41,12 @@ public class PasswordUtils {
      * @return
      */
     public static boolean checkPassword(String password, String encryptedPassword) {
-        String salt = encryptedPassword.substring(32);
-        String encode = EncryptUtils.md5(password + salt) + salt;
-        if (encode.equals(encryptedPassword)) {
-            return true;
+        if (encryptedPassword == null || encryptedPassword.length() != PASSWORD_SALT_LEN + HASH_LENGTH) {
+            return false;
         }
-        return false;
+        String salt = encryptedPassword.substring(HASH_LENGTH);
+        String encode = EncryptUtils.md5(password + salt) + salt;
+        return encode.equals(encryptedPassword);
     }
 
 }
