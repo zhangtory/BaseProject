@@ -1,6 +1,5 @@
-package com.zhangtory.jwt;
+package com.zhangtory.jwt.component;
 
-import com.zhangtory.jwt.util.JwtUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -15,19 +14,25 @@ import static com.zhangtory.jwt.constant.JwtConstant.TOKEN_HEADER;
  */
 public class UserContext {
 
-    public static String getToken() {
+    private JwtHelper jwtHelper;
+
+    public UserContext(JwtHelper jwtHelper) {
+        this.jwtHelper = jwtHelper;
+    }
+
+    public String getToken() {
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = servletRequestAttributes.getRequest();
         String token = request.getHeader(TOKEN_HEADER);
         return token;
     }
 
-    public static Long getUserId() {
-        return Long.parseLong(JwtUtils.getId(getToken()));
+    public Long getUserId() {
+        return Long.parseLong(jwtHelper.getId(getToken()));
     }
 
-    public static String getUsername() {
-        return JwtUtils.getSubject(getToken());
+    public String getUsername() {
+        return jwtHelper.getSubject(getToken());
     }
 
 }

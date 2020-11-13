@@ -1,43 +1,47 @@
-package com.zhangtory.jwt.util;
+package com.zhangtory.jwt.component;
 
+import com.zhangtory.jwt.config.JwtConfig;
 import com.zhangtory.jwt.exception.LoginCheckException;
 import com.zhangtory.jwt.model.JwtUserVo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 
 import static com.zhangtory.jwt.constant.JwtConstant.TOKEN_EXPIRED;
 
 /**
- * @author zhangtory
- * @date 2019/12/10 21:23
- * @description: json_web_token 工具
+ * @Author: ZhangTory
+ * @Date: 2020/11/13 10:21
+ * @Description:
  */
-public class JwtUtils {
+public class JwtHelper {
 
-    public static final String JWT_ISSUER = "jwt-issuer";
+    private JwtConfig jwtConfig;
 
-    public static final Long DEFAULT_EXPIRATION = 7 * 24 * 60 * 60 * 1000L;
+    private Key key;
 
-    private static final Key KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    public JwtHelper(JwtConfig jwtConfig) {
+        this.jwtConfig = jwtConfig;
+        this.key = Keys.hmacShaKeyFor(jwtConfig.secretKey.getBytes(StandardCharsets.UTF_8));
+    }
 
     /**
      * 对用户颁发令牌
      * @param jwtUserVo
      * @return
      */
-    public static String createToken(JwtUserVo jwtUserVo) {
+    public String createToken(JwtUserVo jwtUserVo) {
         return Jwts.builder()
-                .signWith(KEY)
-                .setIssuer(JWT_ISSUER)
+                .signWith(this.key)
+                .setIssuer(this.jwtConfig.jwtIssue)
                 .setIssuedAt(new Date())
                 .setId(jwtUserVo.getId().toString())
                 .setSubject(jwtUserVo.getUsername())
-                .setExpiration(new Date(System.currentTimeMillis() + DEFAULT_EXPIRATION))
+                .setExpiration(new Date(System.currentTimeMillis() + this.jwtConfig.expiration))
                 .compact();
     }
 
@@ -46,9 +50,9 @@ public class JwtUtils {
      * @param token
      * @return
      */
-    public static Claims getTokenBody(String token) {
+    public Claims getTokenBody(String token) {
         try {
-            return Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).getBody();
+            return Jwts.parser().setSigningKey(this.key).parseClaimsJws(token).getBody();
         } catch (Exception e) {
             // token过期或无效
             throw new LoginCheckException(TOKEN_EXPIRED);
@@ -60,7 +64,7 @@ public class JwtUtils {
      * @param token
      * @return
      */
-    public static String getId(String token) {
+    public String getId(String token) {
         return getTokenBody(token).getId();
     }
 
@@ -69,7 +73,7 @@ public class JwtUtils {
      * @param token
      * @return
      */
-    public static String getSubject(String token) {
+    public String getSubject(String token) {
         return getTokenBody(token).getSubject();
     }
 

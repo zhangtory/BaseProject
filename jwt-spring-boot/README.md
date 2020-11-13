@@ -22,6 +22,7 @@ public class JwtConfigImpl extends JwtConfig {
 
 }
 ```
+此处需要设置issue颁发机构，jwt验证的secretKey，和开放接口路径等。
 
 ## 功能说明
 
@@ -41,4 +42,11 @@ public class JwtConfigImpl extends JwtConfig {
 ```java
 @Autowired
 private UserContext userContext;
+```
+
+### 5. jwt令牌操作
+使用JwtHelper可对令牌进行操作。UserContext也是基于JwtHelper获取用户信息的。
+```java
+@Autowired
+private JwtHelper jwtHelper;
 ```

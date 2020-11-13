@@ -20,6 +20,21 @@ public abstract class JwtConfig {
     }
 
     /**
+     * jwt 秘钥
+     */
+    public String secretKey = "8d4646eb2d7067126eb08adb0672f7bb";
+
+    /**
+     * issue
+     */
+    public String jwtIssue = "issue";
+
+    /**
+     * 默认过期时间
+     */
+    public Long expiration = 7 * 24 * 60 * 60 * 1000L;
+
+    /**
      * 初始化设置
      */
     public abstract void initJwtConfig();
