@@ -44,6 +44,7 @@ public class PasswordUtils {
         if (encryptedPassword == null || encryptedPassword.length() != PASSWORD_SALT_LEN + HASH_LENGTH) {
             return false;
         }
+        encryptedPassword = encryptedPassword.toUpperCase();
         String salt = encryptedPassword.substring(HASH_LENGTH);
         String encode = EncryptUtils.md5(password + salt) + salt;
         return encode.equals(encryptedPassword);
