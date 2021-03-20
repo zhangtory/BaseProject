@@ -2,6 +2,7 @@ package com.zhangtory.core.config;
 
 import com.zhangtory.core.constant.CommonResult;
 import com.zhangtory.core.exception.CommonException;
+import com.zhangtory.core.exception.SignException;
 import com.zhangtory.core.response.BaseResponse;
 import com.zhangtory.core.response.ResponseBuilder;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,12 @@ import java.util.Map;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(value = SignException.class)
+    public BaseResponse signException(SignException e) {
+        log.warn(ExceptionUtils.getStackTrace(e));
+        return ResponseBuilder.failure(e.getResult());
+    }
 
     @ExceptionHandler(value = CommonException.class)
     public BaseResponse commonException(CommonException e) {

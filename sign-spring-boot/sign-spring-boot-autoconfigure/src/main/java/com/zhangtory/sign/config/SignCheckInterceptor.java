@@ -1,8 +1,9 @@
 package com.zhangtory.sign.config;
 
+import com.zhangtory.core.constant.CommonResult;
+import com.zhangtory.core.exception.SignException;
+import com.zhangtory.core.util.EncryptUtils;
 import com.zhangtory.sign.SignChecker;
-import com.zhangtory.sign.exception.SignException;
-import com.zhangtory.sign.util.EncryptUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,10 +51,10 @@ public class SignCheckInterceptor implements HandlerInterceptor {
         try {
             timestamp = Long.parseLong(request.getParameter(signChecker.timestamp));
         } catch (NumberFormatException e) {
-            throw new SignException(TIMESTAMP_ERROR);
+            throw new SignException(CommonResult.TIMESTAMP_ERROR);
         }
         if (Math.abs(timestamp - System.currentTimeMillis()) > signChecker.timeOut) {
-            throw new SignException(TIMESTAMP_ERROR);
+            throw new SignException(CommonResult.TIMESTAMP_ERROR);
         }
         // 签名值
         String sign = request.getParameter(signChecker.signKey);
@@ -74,7 +75,7 @@ public class SignCheckInterceptor implements HandlerInterceptor {
         String md5 = EncryptUtils.md5(originStr.toString());
         if (!md5.equals(sign.toUpperCase())) {
             logger.warn("签名错误，原串: [{}], md5: [{}], 收到的签名: [{}]", originStr.toString(), md5, sign);
-            throw new SignException(SIGN_ERROR);
+            throw new SignException(CommonResult.SIGN_ERROR);
         }
         return true;
     }
