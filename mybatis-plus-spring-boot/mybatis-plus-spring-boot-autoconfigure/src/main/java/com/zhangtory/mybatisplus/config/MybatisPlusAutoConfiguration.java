@@ -41,12 +41,4 @@ public class MybatisPlusAutoConfiguration {
         return interceptor;
     }
 
-    @Bean
-    @ConditionalOnMissingBean
-    public CodeGenerator codeGenerator(DatabaseProperties databaseProperties) {
-        CodeGenerator codeGenerator = new CodeGenerator();
-        codeGenerator.setDatabaseProperties(databaseProperties);
-        return codeGenerator;
-    }
-
 }
