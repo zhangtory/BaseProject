@@ -2,6 +2,7 @@ package com.zhangtory.core.config;
 
 import com.zhangtory.core.constant.CommonResult;
 import com.zhangtory.core.exception.CommonException;
+import com.zhangtory.core.exception.RedisException;
 import com.zhangtory.core.exception.SignException;
 import com.zhangtory.core.response.BaseResponse;
 import com.zhangtory.core.response.ResponseBuilder;
@@ -27,6 +28,12 @@ import java.util.Map;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(value = RedisException.class)
+    public BaseResponse redisException(RedisException e) {
+        log.error(ExceptionUtils.getStackTrace(e));
+        return ResponseBuilder.failure();
+    }
 
     @ExceptionHandler(value = SignException.class)
     public BaseResponse signException(SignException e) {

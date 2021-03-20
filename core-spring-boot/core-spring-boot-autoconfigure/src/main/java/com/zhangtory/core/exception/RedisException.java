@@ -1,9 +1,9 @@
-package com.zhangtory.redis.exception;
+package com.zhangtory.core.exception;
 
 /**
- * @Author: ZhangTory
- * @Date: 2020/11/6 11:01
- * @Description:
+ * @author zhangtory
+ * @date 2021/3/20 13:56
+ * @description: redis异常
  */
 public class RedisException extends RuntimeException {
 

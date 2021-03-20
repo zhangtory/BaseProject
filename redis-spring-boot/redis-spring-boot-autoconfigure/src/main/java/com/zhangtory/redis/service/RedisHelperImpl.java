@@ -1,7 +1,7 @@
 package com.zhangtory.redis.service;
 
 import com.alibaba.fastjson.JSON;
-import com.zhangtory.redis.exception.RedisException;
+import com.zhangtory.core.exception.RedisException;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
