@@ -12,7 +12,7 @@ public class CommonResult {
 
     public static final CommonResult SUCCESS = new CommonResult(0, "success");
 
-    public static final CommonResult SYSTEM_ERROR = new CommonResult(0, "system_error");
+    public static final CommonResult SYSTEM_ERROR = new CommonResult(-1, "system_error");
 
     public static final CommonResult REQUEST_PARAMS_ERROR = new CommonResult(-100, "request_params_error");
 
