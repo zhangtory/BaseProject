@@ -2,9 +2,9 @@
 引入依赖：
 ```xml
 <dependency>
-    <groupId>com.zhangtory</groupId>
+    <groupId>com.zhangtory.base</groupId>
     <artifactId>redis-spring-boot-starter</artifactId>
-    <version>1.0</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 增加配置：
@@ -25,6 +25,7 @@ spring:
     pool: 6379 
     timeout: 5000
     database: 0  
+    password: password
 ```
  
 ## 功能说明
