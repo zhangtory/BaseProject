@@ -2,9 +2,9 @@
 引入依赖：
 ```xml
 <dependency>
-    <groupId>com.zhangtory</groupId>
+    <groupId>com.zhangtory.base</groupId>
     <artifactId>mybatis-plus-spring-boot-starter</artifactId>
-    <version>1.0</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
@@ -25,3 +25,15 @@ spring:
 
 ### 2.使用代码生成器
 模板在resources/templates下，可根据自己实际情况修改。
+用法：
+```java
+    @Autowired
+    private DatabaseProperties databaseProperties;
+
+    @Test
+    void generatorCreate() throws InterruptedException {
+        CodeGenerator codeGenerator = new CodeGenerator(databaseProperties, false,
+                "ZhangTory", "com.zhangtory.base");
+        codeGenerator.create("record");
+    }
+```

@@ -20,68 +20,34 @@ public class CodeGenerator {
 
     private DatabaseProperties databaseProperties;
 
-    public void setDatabaseProperties(DatabaseProperties databaseProperties) {
-        this.databaseProperties = databaseProperties;
-    }
-
     /**
      * 是否覆盖已有文件
      */
     private Boolean fileOverride = false;
-
-    public void setFileOverride(Boolean fileOverride) {
-        this.fileOverride = fileOverride;
-    }
 
     /**
      * 修改创建人
      */
     private String author = "";
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
     /**
-     * 根包路径
+     * 包路径
      */
-    private String modulePath = "";
+    private String parent = "";
 
-    public void setModulePath(String modulePath) {
-        this.modulePath = modulePath;
-    }
-
-    /**
-     * 生成代码
-     * @param tablesName
-     * @param modulePath
-     * @param author
-     * @param fileOverride
-     */
-    public void create(String tablesName, String modulePath, String author, Boolean fileOverride) {
-        this.author = author;
+    public CodeGenerator(DatabaseProperties databaseProperties, Boolean fileOverride,
+                         String author, String parent) {
+        this.databaseProperties = databaseProperties;
         this.fileOverride = fileOverride;
-        create(tablesName, modulePath);
-    }
-
-    /**
-     * 生成代码
-     * @param tablesName
-     * @param modulePath
-     * @param author
-     */
-    public void create(String tablesName, String modulePath, String author) {
         this.author = author;
-        create(tablesName, modulePath);
+        this.parent = parent;
     }
 
     /**
      * 生成代码
      * @param tablesName 需要生成的表的表名，使用英文逗号分割
-     * @param modulePath
      */
-    public void create(String tablesName, String modulePath) {
-        this.modulePath = modulePath;
+    public void create(String tablesName) {
         AutoGenerator mpg = new AutoGenerator();
         // 全局配置
         mpg.setGlobalConfig(globalConfig());
@@ -111,6 +77,7 @@ public class CodeGenerator {
         gc.setAuthor(author);
         gc.setOpen(false);
         gc.setFileOverride(fileOverride);
+        gc.setServiceName("%sService");
         return gc;
     }
 
@@ -133,8 +100,7 @@ public class CodeGenerator {
      */
     private PackageConfig packageConfig() {
         PackageConfig pc = new PackageConfig();
-        pc.setParent("com.zhangtory");
-        pc.setModuleName(modulePath);
+        pc.setParent(this.parent);
         pc.setEntity("model.entity");
         pc.setMapper("dao");
         return pc;
