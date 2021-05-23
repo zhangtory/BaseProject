@@ -10,8 +10,8 @@
   #### 0. base-project
   基础项目demo。
   
-  #### 1. [core-spring-boot-starter](core-spring-boot/README.md)
-  核心core-spring-boot-starter必须引入，包含了swagger集成、CORS跨域请求处理、统一返回对象、全局异常处理、logback日志配置、请求日志打印拦截器、通用异常类以及可能用到的utils。
+  #### 1. [core](core/README.md)
+  核心core必须引入，包含了swagger集成、CORS跨域请求处理、统一返回对象、全局异常处理、logback日志配置、请求日志打印拦截器、通用异常类以及可能用到的utils。
 
   #### 2. [mybatis-plus-spring-boot-starter](mybatis-plus-spring-boot/README.md)
   支持mybatis-plus，加入了分页拦截器和乐观锁拦截器，并提供代码生成器。
@@ -26,7 +26,7 @@
   提供json web token的支持，验证用户登录等功能。
   
 
-## 以core-spring-boot-starter为例创建项目
+## 以core为例创建项目
   新建springboot项目或以base-project为基础修改名称。
   
   #### a. 新建springboot项目
@@ -35,9 +35,9 @@
   2. 创建后引入core依赖。
   ```xml
   <dependency>
-	<groupId>com.zhangtory</groupId>
-	<artifactId>core-spring-boot-starter</artifactId>
-	<version>1.0</version>
+	<groupId>com.zhangtory.base</groupId>
+	<artifactId>core</artifactId>
+	<version>1.0.0</version>
   </dependency>
   ````
   3. 创建对应环境的配置文件。若有必要可以增加maven对profiles的支持。
