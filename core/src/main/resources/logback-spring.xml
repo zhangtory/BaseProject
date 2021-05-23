@@ -10,6 +10,23 @@
         </encoder>
     </appender>
 
+    <appender name="debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.filePath}/debug.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.filePath}/debug/debug-%d{yyyy-MM-dd}.log
+            </fileNamePattern>
+            <maxHistory>${log.maxHistory}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>debug</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
     <appender name="info" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log.filePath}/info.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -61,7 +78,8 @@
         </filter>
     </appender>
 
-    <root level="info">
+    <root level="debug">
+        <appender-ref ref="debug"/>
         <appender-ref ref="console"/>
         <appender-ref ref="info"/>
         <appender-ref ref="warn"/>
