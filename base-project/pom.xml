@@ -25,9 +25,15 @@
         </dependency>
 
         <dependency>
-            <groupId>com.zhangtory</groupId>
-            <artifactId>core-spring-boot-starter</artifactId>
-            <version>1.0</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zhangtory.base</groupId>
+            <artifactId>core</artifactId>
+            <version>1.0.0</version>
         </dependency>
 
         <dependency>
