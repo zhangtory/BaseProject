@@ -2,6 +2,7 @@ package com.zhangtory.base.core.config;
 
 import com.zhangtory.base.core.constant.CommonResult;
 import com.zhangtory.base.core.exception.CommonException;
+import com.zhangtory.base.core.exception.SignException;
 import com.zhangtory.base.core.response.BaseResponse;
 import com.zhangtory.base.core.response.ResponseBuilder;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,11 @@ import java.util.*;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(value = SignException.class)
+    public BaseResponse<Null> signExceptionHandler(SignException e) {
+        return ResponseBuilder.failure(e.getResult());
+    }
 
     @ExceptionHandler(value = CommonException.class)
     public BaseResponse<Null> commonExceptionHandler(CommonException e) {

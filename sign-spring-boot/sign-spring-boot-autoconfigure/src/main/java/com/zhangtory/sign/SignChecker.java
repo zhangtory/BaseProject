@@ -1,7 +1,5 @@
 package com.zhangtory.sign;
 
-import lombok.Getter;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +17,8 @@ public abstract class SignChecker {
 
     /**
      * 接口列表是否被检查
+     * 默认false：patterns中的url不进行验签检查
+     * true：patterns中的URL进行验签检查
      */
     public Boolean isCheck = false;
 

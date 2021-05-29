@@ -8,7 +8,6 @@
   <artifactId>redis-spring-boot</artifactId>
   <version>1.0.0</version>
   <packaging>pom</packaging>
-  <name>redis-spring-boot</name>
 
   <modules>
       <module>redis-spring-boot-autoconfigure</module>

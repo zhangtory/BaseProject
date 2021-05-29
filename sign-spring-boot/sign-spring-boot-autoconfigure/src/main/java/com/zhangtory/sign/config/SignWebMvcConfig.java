@@ -1,6 +1,7 @@
 package com.zhangtory.sign.config;
 
 import com.zhangtory.sign.SignChecker;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
@@ -12,9 +13,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @Date: 2020/11/4 17:30
  * @Description:
  */
+@Slf4j
 public class SignWebMvcConfig implements WebMvcConfigurer {
-
-    Logger logger = LoggerFactory.getLogger(SignWebMvcConfig.class);
 
     private SignCheckInterceptor signCheckInterceptor;
 
@@ -27,7 +27,7 @@ public class SignWebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        logger.info("SignWebMvcConfig addInterceptors: signCheckInterceptor");
+        log.info("SignWebMvcConfig addInterceptors: signCheckInterceptor");
         // 验签检查拦截器
         InterceptorRegistration interceptor = registry.addInterceptor(signCheckInterceptor);
         // 放开swagger

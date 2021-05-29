@@ -1,9 +1,10 @@
 package com.zhangtory.sign.config;
 
-import com.zhangtory.core.constant.CommonResult;
-import com.zhangtory.core.exception.SignException;
-import com.zhangtory.core.util.EncryptUtils;
+import com.zhangtory.base.core.exception.SignException;
+import com.zhangtory.base.core.util.EncryptUtils;
 import com.zhangtory.sign.SignChecker;
+import com.zhangtory.sign.constant.SignCommonResult;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,17 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 import java.util.TreeMap;
 
-import static com.zhangtory.sign.constant.SignConstant.SIGN_ERROR;
-import static com.zhangtory.sign.constant.SignConstant.TIMESTAMP_ERROR;
-
 /**
  * @Author: ZhangTory
  * @Date: 2020/10/30 10:28
  * @Description: 接口验签拦截器
  */
+@Slf4j
 public class SignCheckInterceptor implements HandlerInterceptor {
-
-    Logger logger = LoggerFactory.getLogger(SignCheckInterceptor.class);
 
     private SignChecker signChecker;
 
@@ -51,10 +48,10 @@ public class SignCheckInterceptor implements HandlerInterceptor {
         try {
             timestamp = Long.parseLong(request.getParameter(signChecker.timestamp));
         } catch (NumberFormatException e) {
-            throw new SignException(CommonResult.TIMESTAMP_ERROR);
+            throw new SignException(SignCommonResult.TIMESTAMP_ERROR);
         }
         if (Math.abs(timestamp - System.currentTimeMillis()) > signChecker.timeOut) {
-            throw new SignException(CommonResult.TIMESTAMP_ERROR);
+            throw new SignException(SignCommonResult.TIMESTAMP_ERROR);
         }
         // 签名值
         String sign = request.getParameter(signChecker.signKey);
@@ -74,8 +71,8 @@ public class SignCheckInterceptor implements HandlerInterceptor {
         originStr.append(signChecker.getSecret());
         String md5 = EncryptUtils.md5(originStr.toString());
         if (!md5.equals(sign.toUpperCase())) {
-            logger.warn("签名错误，原串: [{}], md5: [{}], 收到的签名: [{}]", originStr.toString(), md5, sign);
-            throw new SignException(CommonResult.SIGN_ERROR);
+            log.warn("签名错误，原串: [{}], md5: [{}], 收到的签名: [{}]", originStr.toString(), md5, sign);
+            throw new SignException(SignCommonResult.SIGN_ERROR);
         }
         return true;
     }
