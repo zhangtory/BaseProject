@@ -2,9 +2,9 @@
 引入依赖：
 ```xml
 <dependency>
-    <groupId>com.zhangtory</groupId>
+    <groupId>com.zhangtory.base</groupId>
     <artifactId>jwt-spring-boot-starter</artifactId>
-    <version>1.0</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 自定义配置
@@ -34,7 +34,7 @@ public class JwtConfigImpl extends JwtConfig {
 从headers的“Authorization”中提取token，并检查token是否有效。
 
 ### 3. 对用户颁发令牌
-在用户登录后，对用户颁发令牌。调用JwtUtils的createToken方法。
+在用户登录后，对用户颁发令牌。调用JwtHelper的createToken方法。
 目前令牌中只记录用的id、username信息，其他信息后期扩展。
 
 ### 4. 用户上下文

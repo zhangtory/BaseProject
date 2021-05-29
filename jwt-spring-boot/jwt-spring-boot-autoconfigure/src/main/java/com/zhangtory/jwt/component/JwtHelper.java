@@ -1,7 +1,8 @@
 package com.zhangtory.jwt.component;
 
+import com.zhangtory.base.core.exception.LoginException;
 import com.zhangtory.jwt.config.JwtConfig;
-import com.zhangtory.jwt.exception.LoginCheckException;
+import com.zhangtory.jwt.constant.JwtCommonResult;
 import com.zhangtory.jwt.model.JwtUserVo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -10,8 +11,6 @@ import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
-
-import static com.zhangtory.jwt.constant.JwtConstant.TOKEN_EXPIRED;
 
 /**
  * @Author: ZhangTory
@@ -55,7 +54,7 @@ public class JwtHelper {
             return Jwts.parser().setSigningKey(this.key).parseClaimsJws(token).getBody();
         } catch (Exception e) {
             // token过期或无效
-            throw new LoginCheckException(TOKEN_EXPIRED);
+            throw new LoginException(JwtCommonResult.TOKEN_EXPIRED);
         }
     }
 

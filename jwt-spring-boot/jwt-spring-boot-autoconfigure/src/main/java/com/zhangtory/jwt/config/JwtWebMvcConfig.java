@@ -1,5 +1,6 @@
 package com.zhangtory.jwt.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -10,9 +11,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @Date: 2020/10/30 10:27
  * @Description: mvc config
  */
+@Slf4j
 public class JwtWebMvcConfig implements WebMvcConfigurer {
-
-    Logger logger = LoggerFactory.getLogger(JwtWebMvcConfig.class);
 
     private LoginCheckInterceptor loginCheckInterceptor;
 
@@ -25,7 +25,7 @@ public class JwtWebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        logger.info("JwtWebMvcConfig addInterceptors: loginCheckInterceptor");
+        log.info("WebMvcConfigurer addInterceptors: JwtWebMvcConfig");
         // 用户登录检查拦截器
         registry.addInterceptor(loginCheckInterceptor)
                 .addPathPatterns("/**")

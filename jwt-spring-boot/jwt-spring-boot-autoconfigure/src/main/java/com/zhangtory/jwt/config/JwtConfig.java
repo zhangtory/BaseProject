@@ -11,7 +11,7 @@ import java.util.List;
 public abstract class JwtConfig {
 
     /**
-     * 接口列表
+     * 不需要jwt验证的接口列表
      */
     public List<String> patterns = new ArrayList<>();
 
@@ -33,6 +33,11 @@ public abstract class JwtConfig {
      * 默认过期时间
      */
     public Long expiration = 7 * 24 * 60 * 60 * 1000L;
+
+    /**
+     * headers中提取token的字段名
+     */
+    public String tokenHeader = "Authorization";
 
     /**
      * 初始化设置
